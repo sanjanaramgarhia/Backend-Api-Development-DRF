@@ -1,2 +1,2 @@
 # Backend-Api-Development-DRF
-Practice repository for learning Django REST Framework concepts like APIView, Mixins, Generic Views, and ViewSets.
+Django REST Framework practice repository containing CRUD APIs, authentication, permissions, serializers, and RESTful backend concepts.
