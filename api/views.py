@@ -8,6 +8,8 @@ from employees.models import Employee
 from django.http import Http404
 from rest_framework import mixins, generics, viewsets
 from django.shortcuts import get_object_or_404, render
+from blogs.models import Blog, Comment
+from blogs.serializer import BlogSerializer, CommentSerializer
 
 # Function based biews
 @api_view(['GET', 'POST','PUT'])
@@ -115,7 +117,6 @@ class EmployeeDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.
     def delete(self, request, pk):
         return self.destroy(request, pk)
 
-
 # Generic 
 class Employees(generics.ListCreateAPIView):
     queryset = Employee.objects.all()
@@ -125,7 +126,6 @@ class EmployeeDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
     lookup_field = 'pk'
-
 
 # Viewsets
 class EmployeeViewSet(viewsets.ViewSet):
@@ -163,3 +163,22 @@ class EmployeeViewSet(viewsets.ViewSet):
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
+
+# Nested Serializer
+class BlogView(generics.ListCreateAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+
+class CommentsView(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+class BlogDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+    lookup_field = 'pk'
+
+class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+    lookup_field = 'pk'
