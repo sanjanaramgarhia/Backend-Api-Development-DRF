@@ -10,8 +10,11 @@ from rest_framework import mixins, generics, viewsets
 from django.shortcuts import get_object_or_404, render
 from blogs.models import Blog, Comment
 from blogs.serializer import BlogSerializer, CommentSerializer
+from .paginations import CustomPagination
+from employees.filters import EmployeeFilter
+from rest_framework.filters import SearchFilter
 
-# Function based biews
+#Function based views
 @api_view(['GET', 'POST','PUT'])
 def studentsView(request):
     if request.method == 'GET':
@@ -163,11 +166,15 @@ class EmployeeViewSet(viewsets.ViewSet):
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
+    pagination_class = CustomPagination
+    filterset_class = EmployeeFilter
 
 # Nested Serializer
 class BlogView(generics.ListCreateAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['blog_title', 'blog_body']
 
 class CommentsView(generics.ListCreateAPIView):
     queryset = Comment.objects.all()

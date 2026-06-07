@@ -6,8 +6,8 @@ router = DefaultRouter()
 router.register('employees', views.EmployeeViewSet, basename='employee')
 
 urlpatterns = [
-    path('students/', views.studentsView),
-    path('students/<int:pk>/', views.studentDetailView),
+    # path('students/', views.studentsView),
+    # path('students/<int:pk>/', views.studentDetailView),
     path('', include(router.urls)),
 
     # path('employees/', views.Employees.as_view()),
